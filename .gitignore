@@ -1,0 +1,14 @@
+*.obj
+obj/
+bin/
+*.scc
+*.suo
+*.ncb
+*.vcproj
+*.user
+*.opt
+*.clw
+*.aps
+*.mak
+Thumbs.db
+*.cachefile
