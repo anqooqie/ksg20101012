@@ -2,7 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 
-namespace ksg20101012.Library {
+namespace MyLibrary {
     /// <summary>
     /// プログラム全体で一つのシードを使う乱数
     /// </summary>

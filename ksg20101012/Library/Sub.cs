@@ -2,7 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 
-namespace ksg20101012.Library {
+namespace MyLibrary {
     /// <summary>
     /// System.Func‚Ì’l‚ð•Ô‚³‚È‚¢”Å
     /// </summary>

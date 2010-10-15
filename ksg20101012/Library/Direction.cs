@@ -2,7 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 
-namespace ksg20101012.Library {
+namespace MyLibrary {
     public enum Direction {
         Left = 0,
         Up = 1,
