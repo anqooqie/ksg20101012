@@ -1,10 +1,10 @@
-using System;
+ï»¿using System;
 using System.Collections.Generic;
 using System.Linq;
 
 namespace MyLibrary {
     /// <summary>
-    /// ƒvƒƒOƒ‰ƒ€‘S‘Ì‚Åˆê‚Â‚ÌƒV[ƒh‚ğg‚¤—”
+    /// ãƒ—ãƒ­ã‚°ãƒ©ãƒ å…¨ä½“ã§ä¸€ã¤ã®ã‚·ãƒ¼ãƒ‰ã‚’ä½¿ã†ä¹±æ•°
     /// </summary>
     public static class StaticRandom {
         private static Random random = new Random();

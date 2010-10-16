@@ -1,10 +1,10 @@
-using System;
+ï»¿using System;
 using System.Collections.Generic;
 using System.Linq;
 
 namespace MyLibrary {
     /// <summary>
-    /// System.Func‚Ì’l‚ğ•Ô‚³‚È‚¢”Å
+    /// System.Funcã®å€¤ã‚’è¿”ã•ãªã„ç‰ˆ
     /// </summary>
     public delegate void Sub();
     public delegate void Sub<T>(T arg);

@@ -1,8 +1,12 @@
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 
 namespace MyLibrary {
+    /// <summary>
+    /// Yコンビネータ
+    /// 使い方：var fib=YCombinator.Func&lt;int,int&gt;(callee=&gt;n=&gt;(n&lt;=2)?1:callee(n-1)+callee(n-2));
+    /// </summary>
     public static class YCombinator {
         private delegate TResult FuncCalledWithMySelf<TResult>(FuncCalledWithMySelf<TResult> t);
         public static Sub Sub(Func<Sub, Sub> f) {
