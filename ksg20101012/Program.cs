@@ -1,4 +1,4 @@
-using System;
+﻿using System;
 
 namespace ksg20101012 {
     static class Program {

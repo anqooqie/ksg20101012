@@ -23,6 +23,7 @@ namespace ksg20101012 {
         public Game1() {
             graphics = new GraphicsDeviceManager(this);
             Content.RootDirectory = "Content";
+            Global.game = this;
         }
 
         /// <summary>
@@ -46,6 +47,9 @@ namespace ksg20101012 {
             spriteBatch = new SpriteBatch(GraphicsDevice);
 
             // TODO: use this.Content to load your game content here
+            foreach (string asset in new[] { "Attack", "Back", "Enemy", "Player" }) {
+                CachedContent.Load<Texture2D>(@"Images\" + asset);
+            }
         }
 
         /// <summary>
@@ -54,6 +58,7 @@ namespace ksg20101012 {
         /// </summary>
         protected override void UnloadContent() {
             // TODO: Unload any non ContentManager content here
+            Global.Dispose();
         }
 
         /// <summary>
