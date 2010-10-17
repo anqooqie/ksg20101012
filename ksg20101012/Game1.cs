@@ -47,9 +47,14 @@ namespace ksg20101012 {
             spriteBatch = new SpriteBatch(GraphicsDevice);
 
             // TODO: use this.Content to load your game content here
-            foreach (string asset in new[] { "Attack", "Back", "Enemy", "Player" }) {
-                CachedContent.Load<Texture2D>(@"Images\" + asset);
-            }
+            CachedContent.Load<Texture2D>(@"Images\Attack");
+            ImageChip.Bind(@"Images\Attack", 24, 24);
+            CachedContent.Load<Texture2D>(@"Images\Back");
+            ImageChip.Bind(@"Images\Back", 24, 24);
+            CachedContent.Load<Texture2D>(@"Images\Enemy");
+            ImageChip.Bind(@"Images\Enemy", 24, 32);
+            CachedContent.Load<Texture2D>(@"Images\Player");
+            ImageChip.Bind(@"Images\Player", 24, 32);
         }
 
         /// <summary>

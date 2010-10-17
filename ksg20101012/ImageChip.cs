@@ -15,7 +15,7 @@ using MyLibrary;
 namespace ksg20101012 {
 
     public struct ImageChip {
-        public static Dictionary<string, Rectangle> chipDatas;
+        public static Dictionary<string, Rectangle> chipDatas = new Dictionary<string, Rectangle>();
 
         public string asset;
         public int x;
@@ -49,7 +49,7 @@ namespace ksg20101012 {
             get { return new Rectangle(this.x, this.y, this.width, this.height); }
         }
 
-        public void Bind(string asset, int width, int height) {
+        public static void Bind(string asset, int width, int height) {
             ImageChip.chipDatas[asset] = new Rectangle(0, 0, width, height);
         }
     }

@@ -1,4 +1,4 @@
-﻿using System;
+﻿﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using Microsoft.Xna.Framework;
@@ -20,11 +20,11 @@ namespace ksg20101012 {
         /// <summary>
         /// 仮想キーの状態
         /// </summary>
-        public struct State {
+        public struct Status {
             public bool isPressed;
             public int pressFrame;
 
-            public State(bool isPressed, int pressFrame) {
+            public Status(bool isPressed, int pressFrame) {
                 this.isPressed = isPressed;
                 this.pressFrame = pressFrame;
             }
@@ -46,17 +46,17 @@ namespace ksg20101012 {
             Quit
         }
 
-        private static Dictionary<Keys, State> states = new Func<Dictionary<Keys, State>>(() => {
-            var result = new Dictionary<Keys, State>();
+        private static Dictionary<Keys, Status> currentStatus = new Func<Dictionary<Keys, Status>>(() => {
+            var result = new Dictionary<Keys, Status>();
             foreach (Keys key in Keys.GetValues(typeof(Keys))) {
-                result[key] = new State(false, 0);
+                result[key] = new Status(false, 0);
             }
             return result;
         })();
-        private static Dictionary<Keys, State> previousStates = new Func<Dictionary<Keys, State>>(() => {
-            var result = new Dictionary<Keys, State>();
+        private static Dictionary<Keys, Status> previousStatus = new Func<Dictionary<Keys, Status>>(() => {
+            var result = new Dictionary<Keys, Status>();
             foreach (Keys key in Keys.GetValues(typeof(Keys))) {
-                result[key] = new State(false, 0);
+                result[key] = new Status(false, 0);
             }
             return result;
         })();
@@ -69,23 +69,23 @@ namespace ksg20101012 {
         })();
 
         //シンタックスシュガーたち
-        public static State Left { get { return VirtualKey.GetState(Keys.Left); } }
-        public static State Up { get { return VirtualKey.GetState(Keys.Up); } }
-        public static State Right { get { return VirtualKey.GetState(Keys.Right); } }
-        public static State Down { get { return VirtualKey.GetState(Keys.Down); } }
-        public static State Decide { get { return VirtualKey.GetState(Keys.Decide); } }
-        public static State Cancel { get { return VirtualKey.GetState(Keys.Cancel); } }
-        public static State Quit { get { return VirtualKey.GetState(Keys.Quit); } }
+        public static Status Left { get { return VirtualKey.GetState(Keys.Left); } }
+        public static Status Up { get { return VirtualKey.GetState(Keys.Up); } }
+        public static Status Right { get { return VirtualKey.GetState(Keys.Right); } }
+        public static Status Down { get { return VirtualKey.GetState(Keys.Down); } }
+        public static Status Decide { get { return VirtualKey.GetState(Keys.Decide); } }
+        public static Status Cancel { get { return VirtualKey.GetState(Keys.Cancel); } }
+        public static Status Quit { get { return VirtualKey.GetState(Keys.Quit); } }
 
         /// <summary>
         /// 仮想キーの状態を取得する。
         /// </summary>
         /// <param name="key">仮想キーの種類</param>
         /// <returns>仮想キーの状態</returns>
-        public static State GetState(Keys key) {
-            return VirtualKey.states[key];
+        public static Status GetState(Keys key) {
+            return VirtualKey.currentStatus[key];
         }
-        public static State GetState(Direction direction) {
+        public static Status GetState(Direction direction) {
             return VirtualKey.GetState((Keys)direction);
         }
         private static void UpdateChild(Keys key, bool isPressed) {
@@ -100,18 +100,18 @@ namespace ksg20101012 {
             }
 
             //previousStatesにstatesをバックアップ
-            VirtualKey.previousStates[key] = VirtualKey.states[key];
-            
+            VirtualKey.previousStatus[key] = VirtualKey.currentStatus[key];
+
             //isPressedを元にstatesの更新処理
-            if (VirtualKey.previousStates[key].isPressed) {
+            if (VirtualKey.previousStatus[key].isPressed) {
                 if (isPressed) {
-                    VirtualKey.states[key] = new State(VirtualKey.states[key].isPressed, VirtualKey.states[key].pressFrame + 1);
+                    VirtualKey.currentStatus[key] = new Status(VirtualKey.currentStatus[key].isPressed, VirtualKey.currentStatus[key].pressFrame + 1);
                 } else {
-                    VirtualKey.states[key] = new State(false, 0);
+                    VirtualKey.currentStatus[key] = new Status(false, 0);
                 }
             } else {
                 if (isPressed) {
-                    VirtualKey.states[key] = new State(true, 1);
+                    VirtualKey.currentStatus[key] = new Status(true, 1);
                 }
             }
         }
@@ -137,7 +137,7 @@ namespace ksg20101012 {
         /// <param name="reserve">予約するフレーム</param>
         public static void Reserve(Keys key, int reserve) {
             List<int> reserves = VirtualKey.reserves[key];
-            
+
             var range = new { start = 0, end = reserves.Count };
             while (range.end - range.start > 0) {
                 int targetIndex = range.start + (range.end - range.start) / 2;
@@ -151,7 +151,7 @@ namespace ksg20101012 {
             }
             reserves.Insert(range.start, reserve);
         }
-        public static void Reserve(Direction direction,int reserve) {
+        public static void Reserve(Direction direction, int reserve) {
             VirtualKey.Reserve((Keys)direction, reserve);
         }
         /// <summary>
@@ -162,13 +162,13 @@ namespace ksg20101012 {
         /// <param name="immediately">値を直ちに変更する</param>
         public static void Input(Keys key, bool immediately) {
             if (immediately) {
-                if (!VirtualKey.states[key].isPressed) {
+                if (!VirtualKey.currentStatus[key].isPressed) {
                     List<int> reserves = VirtualKey.reserves[key];
                     for (int i = 0; i < reserves.Count; i++) {
                         reserves[i]++;
                     }
                     reserves.Insert(0, 1);
-                    VirtualKey.states[key] = VirtualKey.previousStates[key];
+                    VirtualKey.currentStatus[key] = VirtualKey.previousStatus[key];
                     VirtualKey.UpdateChild(key, true);
                 }
             } else {
