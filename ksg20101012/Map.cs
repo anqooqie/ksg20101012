@@ -1,4 +1,4 @@
-using System;
+ï»¿using System;
 using System.Collections.Generic;
 using System.Linq;
 using Microsoft.Xna.Framework;
@@ -90,11 +90,11 @@ namespace ksg20101012 {
         }
         public class Enemy {
             /// <summary>
-            /// ‰æ‘œpx‚Ì’†‰›
+            /// ç”»åƒpxã®ä¸­å¤®
             /// </summary>
             public double RealX { get; private set; }
             /// <summary>
-            /// ‰æ‘œpx‚Ì’†‰›
+            /// ç”»åƒpxã®ä¸­å¤®
             /// </summary>
             public double RealY { get; private set; }
             public Direction Direction { get; private set; }
